@@ -18,26 +18,33 @@ const TariffInputs = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Rate ($/kWh):
-        <input
-          type="number"
-          value={config.rate}
-          onChange={(e) => setConfig({ ...config, rate: parseFloat(e.target.value) })}
-        />
-      </label>
-      <label>
-        Fixed Fee ($):
-        <input
-          type="number"
-          value={config.fixed_fee}
-          onChange={(e) => setConfig({ ...config, fixed_fee: parseFloat(e.target.value) })}
-        />
-      </label>
-      <button type="submit">Update Flat Tariff</button>
-      {message && <p>{message}</p>}
-    </form>
+    <div id="calculate" className="mb-6">
+      <h2 className="text-xl font-bold mb-2">Tariff Inputs</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-gray-700">Rate ($/kWh)</label>
+          <input
+            type="number"
+            step="0.01"
+            value={config.rate}
+            onChange={(e) => setConfig({ ...config, rate: parseFloat(e.target.value) })}
+            className="w-full p-2 border rounded"
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700">Fixed Fee ($)</label>
+          <input
+            type="number"
+            step="0.01"
+            value={config.fixed_fee}
+            onChange={(e) => setConfig({ ...config, fixed_fee: parseFloat(e.target.value) })}
+            className="w-full p-2 border rounded"
+          />
+        </div>
+        <button type="submit" className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Update Tariff</button>
+      </form>
+      {message && <p className="mt-2 text-green-600">{message}</p>}
+    </div>
   );
 };
 

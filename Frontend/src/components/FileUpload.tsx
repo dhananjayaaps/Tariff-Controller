@@ -21,19 +21,22 @@ const FileUpload = () => {
   };
 
   return (
-    <div
-      onDrop={handleDrop}
-      onDragOver={(e) => e.preventDefault()}
-      style={{ border: '2px dashed #ccc', padding: '20px', textAlign: 'center' }}
-    >
-      Drag and Drop CSV/Excel file here
-      <input
-        type="file"
-        accept=".csv,.xlsx"
-        onChange={(e) => e.target.files && handleUpload(e.target.files[0])}
-        style={{ marginTop: '10px' }}
-      />
-      {message && <p>{message}</p>}
+    <div id="upload" className="mb-6">
+      <h2 className="text-xl font-bold mb-2">File Upload</h2>
+      <div
+        onDrop={handleDrop}
+        onDragOver={(e) => e.preventDefault()}
+        className="border-2 border-dashed border-gray-300 p-6 text-center bg-gray-100 rounded-lg hover:bg-gray-200 transition"
+      >
+        <p className="text-gray-600">Drag and Drop CSV/Excel file here</p>
+        <input
+          type="file"
+          accept=".csv,.xlsx"
+          onChange={(e) => e.target.files && handleUpload(e.target.files[0])}
+          className="mt-2"
+        />
+      </div>
+      {message && <p className="mt-2 text-green-600">{message}</p>}
     </div>
   );
 };
