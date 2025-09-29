@@ -63,7 +63,7 @@ def get_usage_trend():
         return jsonify({"trend": trend}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
-
+    
 @app.route('/update_tariff', methods=['POST'])
 def update_tariff():
     tariff_type = request.json.get('tariff_type')
@@ -74,17 +74,19 @@ def update_tariff():
         return jsonify({"error": "No configuration provided"}), 400
     try:
         if tariff_type == "flat":
-            calculator.tariff_configs["flat"]["rate"] = float(config.get("rate", 0.25))
-            calculator.tariff_configs["flat"]["fixed_fee"] = float(config.get("fixed_fee", 10))
+            calculator.update_flat_config(config.get("rate", 0.25), config.get("fixed_fee", 10))
         elif tariff_type == "tou":
-            calculator.tariff_configs["tou"]["peak_rate"] = float(config.get("peak_rate", 0.40))
-            calculator.tariff_configs["tou"]["shoulder_rate"] = float(config.get("shoulder_rate", 0.25))
-            calculator.tariff_configs["tou"]["offpeak_rate"] = float(config.get("offpeak_rate", 0.15))
-            calculator.tariff_configs["tou"]["fixed_fee"] = float(config.get("fixed_fee", 10))
+            peak_hours = config.get("peak_hours", [(18, 22)])
+            calculator.update_tou_config(
+                peak_hours,
+                config.get("peak_rate", 0.40),
+                config.get("shoulder_rate", 0.25),
+                config.get("offpeak_rate", 0.15),
+                config.get("fixed_fee", 10)
+            )
         elif tariff_type == "tiered":
             tiers = [(float(t[0]), float(t[1])) for t in config.get("tiers", [(100, 0.20), (300, 0.30), (float('inf'), 0.40)])]
-            calculator.tariff_configs["tiered"]["tiers"] = tiers
-            calculator.tariff_configs["tiered"]["fixed_fee"] = float(config.get("fixed_fee", 10))
+            calculator.update_tiered_config(tiers, config.get("fixed_fee", 10))
         return jsonify({"message": f"{tariff_type} tariff updated", "config": calculator.tariff_configs[tariff_type]}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400

@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import { useState } from 'react';
 import Navbar from '../components/NavBar';
 import FileUpload from '../components/FileUpload';
-import TariffInputs from '../components/TariffInputs';
+import TariffConfig from '../components/TariffConfig';
 import ModelSelector from '../components/ModelSelector';
 import Visualization from '../components/Visualization';
 
@@ -23,7 +23,7 @@ const Home: NextPage = () => {
         <Navbar />
         <main className="flex-1 p-6">
           <FileUpload onUploadSuccess={handleRefetch} />
-          <TariffInputs />
+          <TariffConfig onConfigUpdate={handleRefetch} />
           <ModelSelector onCalculateSuccess={handleRefetch} />
           <Visualization refetch={handleRefetch} key={refetchTrigger} />
         </main>
