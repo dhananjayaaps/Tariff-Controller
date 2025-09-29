@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { uploadFile } from '../utils/api';
 
-const FileUpload = () => {
+const FileUpload = ({ onUploadSuccess }: { onUploadSuccess: () => void }) => {
   const [message, setMessage] = useState<string | null>(null);
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
@@ -15,6 +15,7 @@ const FileUpload = () => {
     try {
       const response = await uploadFile(file);
       setMessage(response.data.message);
+      onUploadSuccess(); // Trigger refetch after successful upload
     } catch (error) {
       setMessage('Upload failed');
     }

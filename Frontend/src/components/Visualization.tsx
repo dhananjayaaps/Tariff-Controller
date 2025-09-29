@@ -7,19 +7,29 @@ import { UsageTrend, BillResponse } from '../types';
 
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend, BarElement);
 
-const Visualization = () => {
+const Visualization = ({ refetch }: { refetch: () => void }) => {
   const [trendData, setTrendData] = useState<UsageTrend[]>([]);
   const [comparison, setComparison] = useState<Record<string, BillResponse> | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchData = async () => {
+    try {
+      const trendResponse = await getUsageTrend();
+      console.log('Trend Data:', trendResponse.data.trend);
+      setTrendData(trendResponse.data.trend || []);
+      const compareResponse = await compareTariffs();
+      console.log('Comparison Data:', compareResponse.data.comparison);
+      setComparison(compareResponse.data.comparison || null);
+      setError(null);
+    } catch (err) {
+      console.error('Fetch error:', err);
+      setError('Failed to fetch data. Ensure the backend is running and data is uploaded.');
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const trendResponse = await getUsageTrend();
-      setTrendData(trendResponse.data.trend);
-      const compareResponse = await compareTariffs();
-      setComparison(compareResponse.data.comparison);
-    };
     fetchData();
-  }, []);
+  }, [refetch]); // Refetch when refetch function is called
 
   const lineData = {
     labels: trendData.map(d => d.timestamp),
@@ -51,11 +61,19 @@ const Visualization = () => {
       <div className="grid grid-cols-2 gap-4">
         <div className="bg-white p-4 rounded shadow">
           <h3 className="text-lg font-semibold">Usage Trend</h3>
-          <Chart type="line" data={lineData} options={options} />
+          {trendData.length > 0 ? (
+            <Chart type="line" data={lineData} options={options} />
+          ) : (
+            <p className="text-red-500">{error || 'No trend data available. Upload data first.'}</p>
+          )}
         </div>
         <div className="bg-white p-4 rounded shadow">
           <h3 className="text-lg font-semibold">Bill Comparison</h3>
-          <Chart type="bar" data={barData} options={options} />
+          {comparison && Object.keys(comparison).length > 0 ? (
+            <Chart type="bar" data={barData} options={options} />
+          ) : (
+            <p className="text-red-500">{error || 'No comparison data available. Calculate bills first.'}</p>
+          )}
         </div>
       </div>
     </div>

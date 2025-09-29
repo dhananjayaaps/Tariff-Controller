@@ -1,4 +1,6 @@
+"use client";
 import type { NextPage } from 'next';
+import { useState } from 'react';
 import Navbar from '../components/NavBar';
 import FileUpload from '../components/FileUpload';
 import TariffInputs from '../components/TariffInputs';
@@ -6,6 +8,12 @@ import ModelSelector from '../components/ModelSelector';
 import Visualization from '../components/Visualization';
 
 const Home: NextPage = () => {
+  const [refetchTrigger, setRefetchTrigger] = useState(0);
+
+  const handleRefetch = () => {
+    setRefetchTrigger(prev => prev + 1);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       <header className="bg-blue-600 text-white p-4 text-center">
@@ -14,10 +22,10 @@ const Home: NextPage = () => {
       <div className="flex">
         <Navbar />
         <main className="flex-1 p-6">
-          <FileUpload />
+          <FileUpload onUploadSuccess={handleRefetch} />
           <TariffInputs />
-          <ModelSelector />
-          <Visualization />
+          <ModelSelector onCalculateSuccess={handleRefetch} />
+          <Visualization refetch={handleRefetch} key={refetchTrigger} />
         </main>
       </div>
     </div>

@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { calculateBill } from '../utils/api';
 
-const ModelSelector = () => {
+const ModelSelector = ({ onCalculateSuccess }: { onCalculateSuccess: () => void }) => {
   const [selectedModel, setSelectedModel] = useState<string | null>(null);
   const [bill, setBill] = useState<number | null>(null);
 
@@ -10,6 +10,7 @@ const ModelSelector = () => {
     if (selectedModel) {
       const response = await calculateBill(selectedModel);
       setBill(response.data.bill);
+      onCalculateSuccess(); // Trigger refetch after successful calculation
     }
   };
 
