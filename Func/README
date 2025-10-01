@@ -1,0 +1,27 @@
+# Household Tariff Analysis Software - Testing Instructions
+
+This README outlines how to run unit tests and generate coverage reports for `tariff_calculator.py`.
+
+## Prerequisites
+- **Python 3.8+**: Verify with `python --version`.
+- **Libraries**: Install `pandas` and `coverage`:
+  ```bash
+  pip install pandas coverage
+  ```
+- **Windows PATH**: Add `C:\Users\YourUsername\AppData\Roaming\Python\Python313\Scripts` to PATH or use full path to `coverage.exe`.
+- **Files**: Ensure `tariff_tests.py` and `usage.csv` are in the project directory.
+
+## Running Unit Tests
+1. Navigate to project directory: `cd path/to/project`.
+2. Run: `python tarrif_tests.py`.
+3. Screenshot terminal output showing "All unit tests passed successfully. 100% pass rate achieved."
+
+## Statement Coverage
+1. Run: `coverage run --branch tarrif_tests.py`.
+2. Generate report: `coverage report -m`.
+3. Screenshot terminal output showing 100% coverage.
+
+## Branch Coverage
+1. Generate HTML report: `coverage html --include=tarrif_tests.py`.
+2. Open `htmlcov/index.html` in a browser.
+3. Screenshot report showing 100% coverage.
