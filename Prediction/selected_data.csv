@@ -1,0 +1,31 @@
+student,date,day,place,source,minf,maxf,rainf,rain
+Aiden,27_07,su,bris,app,12,20,yes,no
+Aiden,24_07,th,bris,app,9,19,no,no
+Bella,27_07,su,bris,app,9,20,no,no
+Bella,23_07,w,bris,app,9,22,yes,yes
+Bella,02_08,sa,bris,app,7,18,yes,yes
+Will,24_07,th,bris,TV news,10,21,no,no
+Louis,26_07,sa,bris,TV news,12,23,yes,yes
+Will,29_07,t,bris,TV news,7,22,no,no
+Louis,01_08,f,bris,TV news,11,20,yes,yes
+Will,23_07,w,bris,TV news,13,22,no,yes
+Gabby,26_07,sa,bris,web,8,20,yes,yes
+Gabby,03_08,su,bris,web,10,21,yes,yes
+Gabby,01_08,f,bris,web,10,19,no,yes
+Gabby,23_07,w,bris,web,9,22,yes,yes
+Eli,24_07,th,bris,web,10,21,no,no
+Aiden,29_07,t,syd,app,9,17,no,no
+Bella,29_07,t,syd,app,9,18,no,no
+Bella,03_08,su,syd,app,13,16,yes,yes
+Aiden,24_07,th,syd,app,8,16,no,no
+Bella,28_07,m,syd,app,9,18,no,no
+Will,23_07,w,syd,TV news,12,19,yes,no
+Will,30_07,w,syd,TV news,9,15,yes,yes
+Louis,25_07,f,syd,TV news,6,18,no,no
+Will,27_07,su,syd,TV news,11,19,no,no
+Will,02_08,sa,syd,TV news,11,17,yes,yes
+Gabby,02_08,sa,syd,web,10,20,yes,yes
+Gabby,23_07,w,syd,web,7,21,yes,no
+Gabby,25_07,f,syd,web,12,18,yes,no
+Eli,30_07,w,syd,web,10,15,yes,yes
+Eli,02_08,sa,syd,web,11,18,yes,yes
